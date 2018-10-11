@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>提取数组中相同内容组成新的数组</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="col-sm-12">
+        <h1 style="text-align:center;">提取数组中相同类别数据，组成新的数组</h1>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">实现方法:</h3>
+            </div>
+            <div class="panel-body">
+                <pre>
+                    var arr = []; 
+                    data.forEach(function(v,i){ 
+                        for(var k in arr){ 
+                            if( v.columns_id == arr[k].columnsid ){ 
+                                arr[k].list.push(v);
+                                return; 
+                            }
+                        }
+                        arr.push({'columnsid':v.columns_id,'columns':v.columns,'list':[v]})
+                    })
+                    console.log(arr)
+                </pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="col-sm-5 col-sm-offset-1">
+            <div class="panel panel-success ">
+                <div class="panel-heading">
+                    <h3 class="panel-title">格式化前数据:</h3>
+                </div>
+                <div class="panel-body">
+                    <pre>
+                        var data = [
+                            {
+                              "id": "31",
+                              "title": "测试测试",
+                              "columns_id": "1",
+                              "columns": "栏目一",
+                            },
+                            {
+                              "id": "30",
+                              "title": "SQL注入",
+                              "columns_id": "1",
+                              "columns": "栏目一",
+                            },
+                            {
+                              "id": "28",
+                              "title": "Read the Docs features",
+                              "columns_id": "4",
+                              "columns": "代码安全开发规范",
+                            },
+                            {
+                              "id": "22",
+                              "title": "测试",
+                              "columns_id": "4",
+                              "columns": "代码安全开发规范",
+                            },
+                            {
+                              "id": "21",
+                              "title": "XML外部实体注入（XXE）",
+                              "columns_id": "4",
+                              "columns": "代码安全开发规范",
+                            }
+                            
+                        ] 
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5 ">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">格式化后数据:</h3>
+                </div>
+                <div class="panel-body">
+                    <pre>
+                    [
+                        {
+                            "columns": "栏目一",
+                            "columnsid": "1",
+                            "list": [
+                                {
+                                    "id": "31",
+                                    "title": "测试测试",
+                                    "columns_id": "1",
+                                    "columns": "栏目一"
+                                },
+                                {
+                                    "id": "30",
+                                    "title": "SQL注入",
+                                    "columns_id": "1",
+                                    "columns": "栏目一"
+                                }
+                            ]
+                        },
+                        {
+                            "columns": "代码安全开发规范",
+                            "columnsid": "4",
+                            "list": [
+                                {
+                                    "id": "28",
+                                    "title": "Read the Docs features",
+                                    "columns_id": "4",
+                                    "columns": "代码安全开发规范"
+                                },
+                                {
+                                    "id": "22",
+                                    "title": "测试",
+                                    "columns_id": "4",
+                                    "columns": "代码安全开发规范"
+                                },
+                                {
+                                    "id": "21",
+                                    "title": "XML外部实体注入（XXE）",
+                                    "columns_id": "4",
+                                    "columns": "代码安全开发规范"
+                                }
+                            ]
+                        }
+                    ]
+                    </pre>
+                </div>
+            </div> 
+        </div>            
+    </div>
+    
+    <script>
+        var data = [
+            {
+              "id": "31",
+              "title": "测试测试",
+              "columns_id": "1",
+              "columns": "栏目一",
+            },
+            {
+              "id": "30",
+              "title": "SQL注入",
+              "columns_id": "1",
+              "columns": "栏目一",
+            },
+            {
+              "id": "28",
+              "title": "Read the Docs features",
+              "columns_id": "4",
+              "columns": "代码安全开发规范",
+            },
+            {
+              "id": "22",
+              "title": "测试",
+              "columns_id": "4",
+              "columns": "代码安全开发规范",
+            },
+            {
+              "id": "21",
+              "title": "XML外部实体注入（XXE）",
+              "columns_id": "4",
+              "columns": "代码安全开发规范",
+            }
+            
+        ]
+        var arr = []; 
+        data.forEach(function(v,i){ //forEach方法中的function回调有三个参数：第一个参数是遍历的数组内容，第二个参数是对应的数组索引，第三个参数是数组本身
+            for(var k in arr){ //arr除了第一次循环时为空，后面每次循环的length与data数组的length一样长
+                //核心思路:arr数组循环然后和data数组当前条数据对比，如果columnsid相同，就把data数组当前条数据推进arr数组，然后结束本次内循环
+                if( v.columns_id == arr[k].columnsid ){ 
+                    arr[k].list.push(v);
+                    return; 
+                }
+            }
+            arr.push({'columnsid':v.columns_id,'columns':v.columns,'list':[v]})
+        })
+        console.log(arr)
+        
+    </script>
+</body>
+</html>
